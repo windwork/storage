@@ -1,0 +1,17 @@
+{
+  "name" : "windwork/storage",
+  "description" : "windwork storage components",
+  "require" : {
+    "php" : ">=5.5.0"
+  },
+  "license" : "MIT",
+  "autoload" : {
+    "psr-4" : {
+      "wf\\storage\\": "."
+    }
+  },
+  "authors" : [ {
+    "name" : "Windwork Community",
+    "homepage" : "http://windwork.org"
+  } ]
+}
