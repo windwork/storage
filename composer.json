@@ -1,13 +1,15 @@
 {
   "name" : "windwork/storage",
+  "type": "library",
   "description" : "windwork storage components",
+  "version" : "0.1.0",
   "require" : {
     "php" : ">=5.5.0"
   },
   "license" : "MIT",
   "autoload" : {
     "psr-4" : {
-      "wf\\storage\\": "."
+      "wf\\storage\\" : "lib"
     }
   },
   "authors" : [ {

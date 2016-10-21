@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__.'/../StorageFactory.php';
-require_once __DIR__.'/../AStorage.php';
-require_once __DIR__.'/../Exception.php';
-require_once __DIR__.'/../adapter/File.php';
+require_once '../lib/StorageFactory.php';
+require_once '../lib/AStorage.php';
+require_once '../lib/Exception.php';
+require_once '../lib/adapter/File.php';
 
 define('WEB_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
 
