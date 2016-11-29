@@ -31,7 +31,7 @@ $stor = \wf\storage\StorageFactory::create($cfg);
 
 // 通过函数创建
 
-// 函数定义在 wf/misc/lib/functions.php
+// 函数定义在 wf/visitor/lib/functions.php
 //function storage() {
 //    return \wf\storage\StorageFactory::create(cfg());
 //}
@@ -52,7 +52,7 @@ function thumb($path, $width = 100, $height = 0) {
     return \wf\storage\StorageFactory::create(cfg())->getThumbUrl($path, $width, $height);
 }
 ```
-## pathUrl 函数
+## storageUrl 函数
 
 ```
 /**
@@ -60,7 +60,7 @@ function thumb($path, $width = 100, $height = 0) {
  * @param string $path
  * @return string
  */
-function pathUrl($path) {
+function storageUrl($path) {
     return \wf\storage\StorageFactory::create(cfg())->getFullUrl($path);
 }
 ```
