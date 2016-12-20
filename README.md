@@ -31,7 +31,7 @@ $stor = \wf\storage\StorageFactory::create($cfg);
 
 // 通过函数创建
 
-// 函数定义在 wf/visitor/lib/functions.php
+// 函数定义在 wf/helper/lib/functions.php
 //function storage() {
 //    return \wf\storage\StorageFactory::create(cfg());
 //}
