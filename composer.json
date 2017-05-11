@@ -2,7 +2,7 @@
   "name" : "windwork/storage",
   "type": "library",
   "description" : "windwork storage components",
-  "version" : "0.1.0",
+  "version" : "0.3.0",
   "require" : {
     "php" : ">=5.5.0"
   },

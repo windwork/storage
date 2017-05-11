@@ -2,24 +2,14 @@ Windwork 附件存贮组件
 =========================
 为兼容本地存贮和第三方云存贮平台或存贮系统，特封装存贮组件
 
-[开发文档](http://www.windwork.org/manual/wf.storage.html)
 
 ## 配置参数
 ```
 $cfg = [
-
-	'storage_dir'        => 'storage',       // 附件存贮文件夹，相对于站点根目录
-	'storage_site_url'   => 'storage',       // 附件目录url，格式：http://www.windwork.org/（后面带'/'，如果附件访问网址跟附件上传站点不是同一个站时设置）
-    'storage_size_limit' => '2048',               // (K)文件上传大小限制
-	'storage_adapter'    => 'File',               // 附件处理 adapter
-
-
-    'storage_adapter'  => 'File',
-    'storage_dir'      => 'storage_dir/', // 附件存贮文件夹，相对于站点根目录
-    'base_url'         => 'http://stor.demo.com/upload/index.php?',
-    'host_info'        => 'http://stor.demo.com/',
-    'base_path'        => '/upload/',
-    'storage_site_url' => '',//http://stor.demo.com/upload/storage_dir/',
+    'class'      => 'File',               // 附件处理 strategy
+    'dir'        => 'storage',       // 附件存贮文件夹，相对于站点根目录
+    'siteUrl'    => 'storage',       // 附件目录url，格式：http://www.windwork.org/（后面带'/'，如果附件访问网址跟附件上传站点不是同一个站时设置）
+    'sizeLimit'  => '2048',               // (K)文件上传大小限制
 ];
 
 ```
@@ -27,19 +17,21 @@ $cfg = [
 ## 创建实例
 ```
 // 通过工厂方法创建实例
-$stor = \wf\storage\StorageFactory::create($cfg);
+$class = "\\wf\\storage\\strategy\\{$cfg['class']}";
+$stor = new $class($cfg);
 
 // 通过函数创建
 
-// 函数定义在 wf/helper/lib/functions.php
+// 函数定义在 wf/web/lib/helper.php
 //function storage() {
-//    return \wf\storage\StorageFactory::create(cfg());
+//    return di()->storage();
 //}
 
 $stor = storage();
 ```
 
 ## thumb 函数
+生成存储系统中缩略图的链接
 ```
 /**
  * 获取缩略图的URL，一般在模板中使用
@@ -49,7 +41,7 @@ $stor = storage();
  * @return string
  */
 function thumb($path, $width = 100, $height = 0) {
-    return \wf\storage\StorageFactory::create(cfg())->getThumbUrl($path, $width, $height);
+    return storage()->getThumbUrl($path, $width, $height);
 }
 ```
 ## storageUrl 函数
@@ -61,6 +53,18 @@ function thumb($path, $width = 100, $height = 0) {
  * @return string
  */
 function storageUrl($path) {
-    return \wf\storage\StorageFactory::create(cfg())->getFullUrl($path);
+    return storage()->getFullUrl($path);
+}
+```
+## storagePath 函数
+
+```
+/**
+ * 根据上传文件的URL获取Path
+ * @param string $url
+ * @return string
+ */
+function storageUrl($url) {
+    return storage()->getPathFromUrl($url);
 }
 ```
