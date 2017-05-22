@@ -53,7 +53,7 @@ abstract class AStorage
         // 从配置注入存贮目录和存贮站点URL
         $storageUrl = $cfg['siteUrl'];
         $storageUrl || $storageUrl = basename($cfg['dir']);
-        $storageDir = realpath(getcwd().'/'.$cfg['dir']);
+        $storageDir = realpath(getcwd()).'/'.$cfg['dir'];
            
         if(!storageDir) {
             throw new \wf\storage\Exception('附件目录（' . $storageDir . '）不存在！');
@@ -118,10 +118,10 @@ abstract class AStorage
     {
         $url = $this->getUrl($path);
                         
-        if(!preg_match("/^(\\w+)\\:\\/\\//", $url)) {        
-            $domain = $this->cfg['hostInfo'];
-            $domain = rtrim($domain, '/');
-            $basePath = $this->cfg['basePath'];            
+        if(!preg_match("/^(\\w+)\\:\\/\\//", $url)) {   
+            $basePath = substr($_SERVER["REQUEST_URI"], 0, strripos($_SERVER["REQUEST_URI"], basename($this->storageDir)));
+            $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
+            $domain .= htmlspecialchars($_SERVER["HTTP_HOST"]);            
             $url = "{$domain}{$basePath}{$url}";
         }
         
@@ -156,13 +156,9 @@ abstract class AStorage
     public function getThumbUrl($path, $width = 100, $height = 100)
     {
         if (!$path) {
-            $url = $this->cfg['defaultImg'];
-            if(!preg_match("/^(\\w+)\\:\\/\\//", $url)) {                
-                $domain = $this->cfg['staticSiteUrl'];
-                $domain || $domain = $this->cfg['hostInfo'];
-                $domain = rtrim($domain, '/');
-                $basePath = $this->cfg['basePath'];
-                $url = "{$domain}{$basePath}{$url}";
+            $url = $this->cfg['noPicUrl'];
+            if (!$url) {
+                throw new Exception('请设置noPicUrl配置选项');
             }
         } else {
             $path = $this->getThumbPath($path, $width, $height);
@@ -354,7 +350,7 @@ abstract class AStorage
             throw new Exception('请设置后缀名参数');
         }
         
-        $path = date($this->cfg['uploadSubdirFormat']);
+        $path = date($this->cfg['subdirFormat']);
         $path = $path . '/' . sprintf("%08x%x%x", crc32(uniqid()), mt_rand(0x1000, 0xffff), mt_rand(0x1000, 0xffff)) . '.' . ltrim($suffix, '.');
         
         if($this->isExist($path)) {
