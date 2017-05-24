@@ -19,11 +19,11 @@ class FileTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp ();
         $cfg = array(
+            'storageUrl'      => '',//http://stor.demo.com/upload/storage_dir/',
             'storageDir'      => '/storage_dir/',
             'baseUrl'         => 'http://stor.demo.com/upload/index.php?',
             'hostInfo'        => 'http://stor.demo.com',
             'basePath'        => '/upload/',
-            'siteUrl' => '',//http://stor.demo.com/upload/storage_dir/',
         );
         $this->storage = new \wf\storage\strategy\File($cfg);
     }

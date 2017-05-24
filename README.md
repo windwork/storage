@@ -6,10 +6,10 @@ Windwork 附件存贮组件
 ## 配置参数
 ```
 $cfg = [
-    'class'      => 'File',               // 附件处理 strategy
+    'class'      => 'File',          // 附件处理 strategy
     'dir'        => 'storage',       // 附件存贮文件夹，相对于站点根目录
-    'siteUrl'    => 'storage',       // 附件目录url，格式：http://www.windwork.org/（后面带'/'，如果附件访问网址跟附件上传站点不是同一个站时设置）
-    'sizeLimit'  => '2048',               // (K)文件上传大小限制
+    'storageUrl' => 'storage',       // 附件目录url，格式：http://www.windwork.org/（后面带'/'，如果附件访问网址跟附件上传站点不是同一个站时设置）
+    'sizeLimit'  => '2048',          // (M)文件上传大小限制
 ];
 
 ```

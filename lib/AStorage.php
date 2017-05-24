@@ -14,7 +14,7 @@ namespace wf\storage;
  * 长久保存可以从网络访问的数据 
  * 
  * 附件存贮规范：
- * 如果附件服务器使用和网站不一样的域名，在配置文件中设置附件网址(storage.siteUrl)，如新浪云的Storage存贮
+ * 如果附件服务器使用和网站不一样的域名，在配置文件中设置附件网址(storage.storageUrl)，如新浪云的Storage存贮
  * @package     wf.storage
  * @author      cm <cmpan@qq.com>
  * @link        http://docs.windwork.org/manual/wf.storage.html
@@ -51,7 +51,7 @@ abstract class AStorage
         $this->cfg = $cfg;
         
         // 从配置注入存贮目录和存贮站点URL
-        $storageUrl = $cfg['siteUrl'];
+        $storageUrl = $cfg['storageUrl'];
         $storageUrl || $storageUrl = basename($cfg['dir']);
         $storageDir = realpath(getcwd()).'/'.$cfg['dir'];
            
