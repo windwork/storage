@@ -1,5 +1,5 @@
 <?php
-require_once '../lib/AStorage.php';
+require_once '../lib/StorageAbstract.php';
 require_once '../lib/Exception.php';
 require_once '../lib/strategy/File.php';
 

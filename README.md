@@ -24,7 +24,7 @@ $stor = new $class($cfg);
 
 // 函数定义在 wf/web/lib/helper.php
 //function storage() {
-//    return di()->storage();
+//    return storage();
 //}
 
 $stor = storage();

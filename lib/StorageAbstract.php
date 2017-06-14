@@ -20,7 +20,7 @@ namespace wf\storage;
  * @link        http://docs.windwork.org/manual/wf.storage.html
  * @since       0.1.0
  */
-abstract class AStorage
+abstract class StorageAbstract
 {
     /**
      * 

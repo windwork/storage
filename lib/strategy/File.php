@@ -17,7 +17,7 @@ namespace wf\storage\strategy;
  * @link        http://docs.windwork.org/manual/wf.storage.html
  * @since       0.1.0
  */
-class File extends \wf\storage\AStorage 
+class File extends \wf\storage\StorageAbstract
 {
 
     /**
