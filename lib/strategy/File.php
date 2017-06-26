@@ -30,8 +30,8 @@ class File extends \wf\storage\StorageAbstract
     }
     
     /**
-     * 删除附件
-     * @param string $path
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::remove()
      */
     public function remove($path)
     {
@@ -39,9 +39,8 @@ class File extends \wf\storage\StorageAbstract
     }
     
     /**
-     * 删除缩略图
-     * 
-     * @param string $path 缩略图路径
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::removeThumb()
      */
     public function removeThumb($path)
     {        
@@ -70,8 +69,8 @@ class File extends \wf\storage\StorageAbstract
     }
     
     /**
-     * 删除所有缩略图
-     *
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::clearThumb()
      */
     public function clearThumb() 
     {
@@ -79,10 +78,8 @@ class File extends \wf\storage\StorageAbstract
     }
 
     /**
-     * 读取内容
-     *
-     * @param string $path
-     * @return string
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::getContent()
      */
     public function getContent($path)
     {
@@ -90,11 +87,8 @@ class File extends \wf\storage\StorageAbstract
     }
     
     /**
-     * 存贮附件
-     * 
-     * @param string $path
-     * @param string $content
-     * @return bool
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::save()
      */
     public function save($path, $content)
     {
@@ -107,11 +101,10 @@ class File extends \wf\storage\StorageAbstract
     }
 
     /**
-     * 上传文件
-     * @param string $tempFile
-     * @param string $uploadPath
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::saveUploadFile()
      */
-    public function upload($tempFile, $uploadPath)
+    public function saveUploadFile($tempFile, $uploadPath)
     {
         $uploadPath = $this->getRealPath($uploadPath);
         if (!is_dir(dirname($uploadPath))) {
@@ -121,10 +114,8 @@ class File extends \wf\storage\StorageAbstract
     }
     
     /**
-     * 复制文件到附件目录
-     * @param string $pathFrom 来源文件完整的路径（注意该文件路径的安全）
-     * @param string $pathTo
-     * @return boolean
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::copy()
      */
     public function copy($pathFrom, $pathTo)
     {
@@ -139,9 +130,8 @@ class File extends \wf\storage\StorageAbstract
     }
     
     /**
-     * 附件是否存在
-     * @param string $path
-     * @return boolean
+     * {@inheritDoc}
+     * @see \wf\storage\StorageInterface::isExist()
      */
     public function isExist($path)
     {

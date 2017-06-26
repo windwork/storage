@@ -14,7 +14,11 @@ namespace wf\storage;
  * 长久保存可以从网络访问的数据 
  * 
  * 附件存贮规范：
- * 如果附件服务器使用和网站不一样的域名，在配置文件中设置附件网址(storage.storageUrl)，如新浪云的Storage存贮
+ * 如果附件服务器使用和网站不一样的域名，在配置文件中设置附件网址(srv.storage.storageUrl)，如新浪云的Storage存贮
+ * 
+ * 关于缩略图：
+ * 存储组件的缩略图接口只约束缩略图存储相关（网址、路径、删除、清空）功能，缩略图生成算法约束在wf\image\ImageInterface::thumb()
+ * 
  * @package     wf.storage
  * @author      cm <cmpan@qq.com>
  * @link        http://docs.windwork.org/manual/wf.storage.html
@@ -23,7 +27,7 @@ namespace wf\storage;
 interface StorageInterface
 {    
     /**
-     * 获取附件存贮站点网址
+     * 获取附件存贮path之外的网址
      */
     public function getStorageUrl();
             
@@ -133,19 +137,19 @@ interface StorageInterface
     public function save($path, $content);
     
     /**
+     * 上传文件
+     * @param string $tempFile
+     * @param string $uploadPath
+     */
+    public function saveUploadFile($tempFile, $uploadPath);
+    
+    /**
      * 生成附件路径
      * @param string $suffix 后缀 xxx
      * @throws \wf\storage\Exception
      * @return string
      */
     public function generatePath($suffix);
-
-    /**
-     * 上传文件
-     * @param string $tempFile
-     * @param string $uploadPath
-     */
-    public function upload($tempFile, $uploadPath);
     
     /**
      * 复制文件到附件目录

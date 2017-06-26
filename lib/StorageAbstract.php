@@ -157,25 +157,6 @@ abstract class StorageAbstract implements StorageInterface
     
     /**
      * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::remove()
-     */
-    abstract public function remove($path);
-    
-    /**
-     * 删除缩略图
-     * 
-     * @param string $path 缩略图路径
-     */
-    abstract public function removeThumb($path);
-    
-    /**
-     * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::clearThumb()
-     */
-    abstract public function clearThumb();
-    
-    /**
-     * {@inheritDoc}
      * @see \wf\storage\StorageInterface::getThumbPath()
      */
     public function getThumbPath($path, $width, $height)
@@ -287,20 +268,6 @@ abstract class StorageAbstract implements StorageInterface
             return true;
         }
     }
-
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::getContent()
-     */
-    abstract public function getContent($path);
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::save()
-     */
-    abstract public function save($path, $content);
     
     /**
      * 
@@ -323,26 +290,6 @@ abstract class StorageAbstract implements StorageInterface
         return $path;
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::upload()
-     */
-    abstract public function upload($tempFile, $uploadPath);
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::copy()
-     */
-    abstract public function copy($pathFrom, $pathTo);
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \wf\storage\StorageInterface::isExist()
-     */
-    abstract public function isExist($path);
     
     /**
      * 获取安全文件路径名

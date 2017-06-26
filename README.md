@@ -2,13 +2,18 @@ Windwork 附件存贮组件
 =========================
 为兼容本地存贮和第三方云存贮平台或存贮系统，特封装存贮组件
 
+## 使用方法
+```
+1. 在 config/app.php 中设置 srv.storage 组件参数
+2. 调用实例方法 wfStorage()->xxx()
+```
 
 ## 配置参数
 ```
 $cfg = [
-    'class'      => 'File',          // 附件处理 strategy
+    'class'      => '\\wf\\storage\\strategy\\File',          // 附件处理 strategy
     'dir'        => 'storage',       // 附件存贮文件夹，相对于站点根目录
-    'storageUrl' => 'storage',       // 附件目录url，格式：http://www.windwork.org/（后面带'/'，如果附件访问网址跟附件上传站点不是同一个站时设置）
+    'storageUrl' => 'storage',       // 附件目录url，格式：http://www.windwork.org/storage/（后面带'/'，如果附件访问网址跟附件上传站点不是同一个站时设置）
     'sizeLimit'  => '2048',          // (M)文件上传大小限制
 ];
 
@@ -17,17 +22,17 @@ $cfg = [
 ## 创建实例
 ```
 // 通过工厂方法创建实例
-$class = "\\wf\\storage\\strategy\\{$cfg['class']}";
+$class = {$cfg['class']};
 $stor = new $class($cfg);
 
 // 通过函数创建
 
 // 函数定义在 wf/web/lib/helper.php
-//function storage() {
-//    return storage();
+//function wfStorage() {
+//    return wfStorage();
 //}
 
-$stor = storage();
+$stor = wfStorage();
 ```
 
 ## thumb 函数
@@ -41,9 +46,10 @@ $stor = storage();
  * @return string
  */
 function thumb($path, $width = 100, $height = 0) {
-    return storage()->getThumbUrl($path, $width, $height);
+    return wfStorage()->getThumbUrl($path, $width, $height);
 }
 ```
+
 ## storageUrl 函数
 
 ```
@@ -53,9 +59,10 @@ function thumb($path, $width = 100, $height = 0) {
  * @return string
  */
 function storageUrl($path) {
-    return storage()->getFullUrl($path);
+    return wfStorage()->getFullUrl($path);
 }
 ```
+
 ## storagePath 函数
 
 ```
@@ -65,6 +72,6 @@ function storageUrl($path) {
  * @return string
  */
 function storageUrl($url) {
-    return storage()->getPathFromUrl($url);
+    return wfStorage()->getPathFromUrl($url);
 }
 ```
