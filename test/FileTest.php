@@ -1,9 +1,9 @@
 <?php
 require_once '../lib/StorageAbstract.php';
 require_once '../lib/Exception.php';
-require_once '../lib/strategy/File.php';
+require_once '../lib/adapter/File.php';
 
-use \wf\storage\strategy\File;
+use \wf\storage\adapter\File;
 
 /**
  * File test case.
@@ -25,7 +25,7 @@ class FileTest extends PHPUnit_Framework_TestCase
             'hostInfo'        => 'http://stor.demo.com',
             'basePath'        => '/upload/',
         );
-        $this->storage = new \wf\storage\strategy\File($cfg);
+        $this->storage = new \wf\storage\adapter\File($cfg);
     }
     
     /**
@@ -74,7 +74,7 @@ class FileTest extends PHPUnit_Framework_TestCase
             'basePath'        => '/upload/',
             'siteUrl' => 'http://stor.demo.com/upload/storage_dir/',
         );
-        $stor = new \wf\storage\strategy\File($cfg);
+        $stor = new \wf\storage\adapter\File($cfg);
         $thumbUrl = $stor->getThumbUrl($path, 200, 100);
         $this->assertEquals('http://stor.demo.com/upload/storage_dir/thumb/8d/f0/YWEvYmIudHh0$MjAweDEwMA==.jpg', $thumbUrl);
     }

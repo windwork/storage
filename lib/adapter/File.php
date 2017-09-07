@@ -7,12 +7,12 @@
  * @copyright Copyright (c) 2008-2017 Windwork Team. (http://www.windwork.org)
  * @license   http://opensource.org/licenses/MIT
  */
-namespace wf\storage\strategy;
+namespace wf\storage\adapter;
 
 /**
  * 存贮文件（用户上传的附件）操作
  * 
- * @package     wf.storage.strategy
+ * @package     wf.storage.adapter
  * @author      cm <cmpan@qq.com>
  * @link        http://docs.windwork.org/manual/wf.storage.html
  * @since       0.1.0
