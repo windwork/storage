@@ -71,9 +71,10 @@ interface StorageInterface
      * @param int $imgId
      * @param int $width
      * @param int $height
+     * @param bool $fullUrl
      * @return string
      */
-    public function getThumbUrl($path, $width = 100, $height = 100);
+    public function getThumbUrl($path, $width = 100, $height = 100, $fullUrl = false);
     
     /**
      * 删除附件

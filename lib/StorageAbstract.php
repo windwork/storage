@@ -55,7 +55,7 @@ abstract class StorageAbstract implements StorageInterface
         $storageUrl || $storageUrl = basename($cfg['dir']);
         $storageDir = realpath(getcwd()).'/'.$cfg['dir'];
            
-        if(!storageDir) {
+        if(!$storageDir) {
             throw new \wf\storage\Exception('附件目录（' . $storageDir . '）不存在！');
         }
         
@@ -113,10 +113,10 @@ abstract class StorageAbstract implements StorageInterface
         $url = $this->getUrl($path);
                         
         if(!preg_match("/^(\\w+)\\:\\/\\//", $url)) {   
-            $basePath = substr($_SERVER["REQUEST_URI"], 0, strripos($_SERVER["REQUEST_URI"], basename($this->storageDir)));
+            $basePath = dirname($_SERVER['SCRIPT_NAME']);
             $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
             $domain .= htmlspecialchars($_SERVER["HTTP_HOST"]);            
-            $url = "{$domain}{$basePath}{$url}";
+            $url = "{$domain}{$basePath}/{$url}";
         }
         
         return $url;        
@@ -140,7 +140,7 @@ abstract class StorageAbstract implements StorageInterface
      * {@inheritDoc}
      * @see \wf\storage\StorageInterface::getThumbUrl()
      */
-    public function getThumbUrl($path, $width = 100, $height = 100)
+    public function getThumbUrl($path, $width = 100, $height = 100, $fullUrl = false)
     {
         if (!$path) {
             $url = $this->cfg['noPicUrl'];
@@ -149,23 +149,50 @@ abstract class StorageAbstract implements StorageInterface
             }
         } else {
             $path = $this->getThumbPath($path, $width, $height);
-            $url = $this->getFullUrl($path);
+            if ($fullUrl) {
+                $url = $this->getFullUrl($path);
+            } else {
+                $url = $this->getUrl($path);
+            }
         }
         
         return $url;
     }
     
     /**
+     * 缩略图后缀是jpg，建议在web服务器中配置重写判断，如果请求头Accept支持image/webp，则重写到.webp后缀
+     *
      * {@inheritDoc}
      * @see \wf\storage\StorageInterface::getThumbPath()
      */
     public function getThumbPath($path, $width, $height)
     {
+
+        // 尺寸限制
+        $allowSizeList = [0, 50, 100, 150, 200, 300, 400, 500, 640, 720, 800, 1000, 1200, 1680, 1920];
+        $resetW = !in_array($width, $allowSizeList);
+        $resetH = !in_array($height, $allowSizeList);
+
+        if ($resetW || $resetH) {
+            foreach ($allowSizeList as $size) {
+                if ($resetW && $size > $width) {
+                    $width = $size;
+                    $resetW = false;
+                }
+
+                if ($resetH && $size > $height) {
+                    $height = $size;
+                    $resetH = false;
+                }
+
+                if (!$resetH && !$resetW) {
+                    break;
+                }
+            }
+        }
+
         $path = $this->getPathFromUrl($path);
-        
-        $id = base64_encode($path) . '$' . base64_encode("{$width}x{$height}");
-        $sub = sprintf("%x", crc32($path));
-        $path = "thumb/{$sub[0]}{$sub[1]}/{$sub[2]}{$sub[3]}/{$id}.jpg";
+        $path .= ".thumb.{$width}x{$height}.jpg";
         
         return $path;
     }
@@ -207,7 +234,7 @@ abstract class StorageAbstract implements StorageInterface
             $pos = strrpos($path, '.');
             
             if(false !== $pos) {
-                $mimes = array(
+                $mimes = [
                     'css'  => 'text/css',
                     'js'   => 'text/javascript',
                     'htm'  => 'text/html',
@@ -245,7 +272,7 @@ abstract class StorageAbstract implements StorageInterface
                     'asf'  => 'application/x-ms-asf',
                     'wmv'  => 'application/x-ms-wmv',
                     'avi'  => 'application/x-ms-avi',
-                );
+                ];
             
                 $ext = substr($path, $pos+1);
             
